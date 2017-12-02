@@ -4,7 +4,7 @@ function day1_part1(input) {
     return input
         .split("")
         .as_numbers()
-        .filter((x, i, a) => a[(i + 1) % a.length] == x)
+        .filter_it(it => it.next(1, true).value == it.value)
         .sum();
 }
 
@@ -12,7 +12,7 @@ function day1_part2(input) {
     return input
         .split("")
         .as_numbers()
-        .filter((x, i, a) => a[(i + a. length / 2) % a.length] == x)
+        .filter_it(it => it.next(it.length / 2, true).value == it.value)
         .sum();
 }
 

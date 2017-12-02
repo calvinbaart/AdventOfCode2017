@@ -1,3 +1,30 @@
+class Iterator {
+    constructor(array, index) {
+        this._array = array;
+        this._index = index;
+    }
+
+    next(num = 1, wrap = false) {
+        let it = null;
+
+        if (wrap) {
+            it = new Iterator(this._array, (this._index + num) % this._array.length);
+        } else if(this._index + num < this._array.length) {
+            it = new Iterator(this._array, this._index + num);
+        }
+
+        return it;
+    }
+
+    get value() {
+        return this._array[this._index];
+    }
+
+    get length() {
+        return this._array.length;
+    }
+}
+
 Array.prototype.sum = function () {
     if (this.length === 0) {
         return 0;
@@ -77,6 +104,13 @@ Array.prototype.last = function () {
     }
 
     return this[this.length - 1];
+}
+
+Array.prototype.filter_it = function (callback) {
+    return this.filter((a, b, c) => {
+        const iterator = new Iterator(c, b);
+        return callback(iterator);
+    });
 }
 
 String.prototype.split_newline = function () {
