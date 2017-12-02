@@ -78,3 +78,11 @@ Array.prototype.last = function () {
 
     return this[this.length - 1];
 }
+
+String.prototype.split_newline = function () {
+    return this.split(/\r?\n/);
+}
+
+String.prototype.split_whitespace = function () {
+    return this.split(/\s/);
+}
