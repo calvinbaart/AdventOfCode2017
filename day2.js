@@ -25,3 +25,4 @@ function day2_part2(input) {
 }
 
 base.start("day2.in", day2_part1);
+base.start("day2.in", day2_part2);
