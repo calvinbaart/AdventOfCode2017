@@ -33,13 +33,14 @@ function day2_part2(input) {
 
             const result = numbers
                 .map(x => n / parseInt(x))
-                .filter(x => x !== 1 && Math.round(x) === x);
+                .filter(x => Math.round(x) === x)
+                .reduce((x, y) => Math.max(x, y));
             
-            if (result.length === 0) {
+            if (result === 1) {
                 continue;
             }
 
-            sum += result[0];
+            sum += result;
         }
     }
 
