@@ -2,13 +2,13 @@ function day2_part1(input) {
     const lines = input.split("\n");
     let sum = 0;
 
-    for(const line of lines) {
+    for (const line of lines) {
         const numbers = line.split("	");
 
         let min = Number.MAX_VALUE;
         let max = Number.MIN_VALUE;
 
-        for(const num of numbers) {
+        for (const num of numbers) {
             const n = parseInt(num);
 
             min = Math.min(min, n);
