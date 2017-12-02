@@ -74,7 +74,7 @@ Array.prototype.keep_above_equal = function (a) {
 }
 
 Array.prototype.keep_below_equal = function (a) {
-    return this.filter(x => x < a);
+    return this.filter(x => x <= a);
 }
 
 Array.prototype.keep_equal = function (a) {
