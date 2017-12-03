@@ -113,6 +113,61 @@ Array.prototype.filter_it = function (callback) {
     });
 }
 
+Array.prototype.multidimensional = function (width, height, fill) {
+    fill = typeof fill === "undefined" ? true : fill;
+    width = width || 1;
+    height = height || 1;
+
+    this._multidimensional = true;
+    this._width = width;
+    this._height = height;
+
+    if (fill) {
+        this.splice(0, this.length);
+
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                if (typeof fill === "object") {
+                    this.push(fill);
+                } else {
+                    this.push(0);
+                }
+            }
+        }
+    }
+}
+
+Array.prototype.at = function (x, y, setValue) {
+    if (typeof this._multidimensional === "undefined" || !this._multidimensional) {
+        throw "not a multidimensional array";
+    }
+
+    if (x < 0 || x >= this._width || y < 0 || y >= this._height) {
+        return null;
+    }
+    
+    if (typeof setValue !== "undefined") {
+        this[(y * this._width) + x] = setValue;
+    }
+
+    return this[(y * this._width) + x];
+}
+
+Array.prototype.sum_around = function (x, y, callback) {
+    if (typeof callback === "undefined") {
+        callback = x => x;
+    }
+
+    let sum = 0;
+    for (let i = -1; i < 2; i++) {
+        for (let j = -1; j < 2; j++) {
+            sum += callback(this.at(x + i, y + j));
+        }
+    }
+
+    return sum;
+}
+
 String.prototype.split_newline = function () {
     return this.split(/\r?\n/);
 }
@@ -120,3 +175,50 @@ String.prototype.split_newline = function () {
 String.prototype.split_whitespace = function () {
     return this.split(/\s/);
 }
+
+Math.spiral = function (n, sum) {
+    if (typeof n === "string") {
+        n = Number(n);
+    }
+    
+    let ret = x => x;
+
+    if (typeof sum !== "undefined" && sum) {
+        ret = x => Math.abs(x[0]) + Math.abs(x[1]);
+    }
+
+    let k = Math.ceil((Math.sqrt(n) - 1) / 2);
+    let t = 2 * k + 1;
+    let m = Math.pow(t, 2);
+    t--;
+
+    if (n >= m - t) {
+        return ret([k - (m - n), -k]);
+    }
+
+    m -= t;
+
+    if (n >= m - t) {
+        return ret([-k, -k + (m - n)]);
+    }
+
+    m -= t;
+
+    if (n >= m - t) {
+        return ret([-k + (m - n), k]);
+    }
+
+    return ret([k, k - (m - n - t)]);
+};
+
+Math.delta = function (a, b, sum) {
+    let ret = x => x;
+
+    if (typeof sum !== "undefined" && sum) {
+        ret = x => Math.abs(x[0]) + Math.abs(x[1]);
+    }
+
+    let delta = [b[0] - a[0], b[1] - a[1]];
+
+    return ret(delta);
+};
