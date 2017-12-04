@@ -168,6 +168,22 @@ Array.prototype.sum_around = function (x, y, callback) {
     return sum;
 }
 
+Array.prototype.has_duplicates = function () {
+    const tmp = {};
+
+    for (let i = 0; i < this.length; i++) {
+        const value = this[i];
+
+        if (value in tmp) {
+            return true;
+        }
+
+        tmp[value] = true;
+    }
+
+    return false;
+}
+
 String.prototype.split_newline = function () {
     return this.split(/\r?\n/);
 }
