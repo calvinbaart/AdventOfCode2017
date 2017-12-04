@@ -1,0 +1,19 @@
+{
+  "name": "adventofcode2017",
+  "version": "1.0.0",
+  "description": "",
+  "main": "base.js",
+  "scripts": {
+    "new": "node template.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/calvinbaart/AdventOfCode2017.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/calvinbaart/AdventOfCode2017/issues"
+  },
+  "homepage": "https://github.com/calvinbaart/AdventOfCode2017#readme"
+}
