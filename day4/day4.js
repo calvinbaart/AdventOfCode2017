@@ -1,4 +1,4 @@
-const base = require("./base.js");
+const base = require("../base.js");
 
 function day4_part1(input) {
     return input.split_newline()

@@ -1,4 +1,4 @@
-const base = require("./base.js");
+const base = require("../base.js");
 
 function day3_part1(input) {
     return Math.spiral(input, true);
