@@ -182,7 +182,11 @@ Array.prototype.has_duplicates = function () {
     }
 
     return false;
-}
+};
+
+Array.prototype.most_common_value = function () {
+    return this.sort((a, b) => this.filter(v => v === a).length - this.filter(v => v === b).length).pop();
+};
 
 String.prototype.split_newline = function () {
     return this.split(/\r?\n/);
