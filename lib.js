@@ -188,6 +188,14 @@ Array.prototype.most_common_value = function () {
     return this.sort((a, b) => this.filter(v => v === a).length - this.filter(v => v === b).length).pop();
 };
 
+Array.prototype.peek = function () {
+    if (this.length === 0) {
+        return null;
+    }
+    
+    return this[this.length - 1];
+};
+
 String.prototype.split_newline = function () {
     return this.split(/\r?\n/);
 }
