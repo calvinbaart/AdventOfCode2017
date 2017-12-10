@@ -196,6 +196,45 @@ Array.prototype.peek = function () {
     return this[this.length - 1];
 };
 
+Array.prototype.rotate_left = function (n) {
+    n = n || 1;
+
+    for (let i = 0; i < n; i++) {
+        this.push(this.shift());
+    }
+
+    return this;
+};
+
+Array.prototype.rotate_right = function (n) {
+    n = n || 1;
+
+    for (let i = 0; i < n; i++) {
+        this.unshift(this.pop());
+    }
+
+    return this;
+};
+
+Array.prototype.reverse_slice = function (position, length) {
+    if (position + length >= this.length) {
+        const outside = (position + length) - this.length;
+        const slice = this.slice(position, this.length).concat(this.slice(0, outside)).reverse();
+        const delta = position - ((position + length) - this.length);
+        const p1 = slice.slice(slice.length - outside, slice.length);
+        const p2 = this.slice(outside, outside + delta);
+        const p3 = slice.slice(0, slice.length - outside);
+
+        return p1.concat(p2, p3);
+    } else {
+        const part1 = this.slice(0, position);
+        const part2 = this.slice(position, position + length).reverse();
+        const part3 = this.slice(position + length, this.length);
+
+        return part1.concat(part2, part3);
+    }
+}
+
 String.prototype.split_newline = function () {
     return this.split(/\r?\n/);
 }
