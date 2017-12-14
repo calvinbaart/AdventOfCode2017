@@ -86,7 +86,7 @@ Array.prototype.keep_same = function () {
 };
 
 Array.prototype.print = function () {
-    console.log(this.join(", "));
+    console.log(this);//this.join(", "));
     return this;
 };
 
@@ -235,12 +235,78 @@ Array.prototype.reverse_slice = function (position, length) {
     }
 };
 
+Array._hashSetup = function() {
+    return {
+        list: [...Array(256).keys()],
+        position: 0,
+        skipSize: 0
+    };
+};
+
+Array._hashExecute = function(lengths, list, position, skipSize) {
+    lengths.forEach(x => {
+        list = list.reverse_slice(position, x);
+
+        const skip = skipSize + x;
+        position = (position + skip) % list.length;
+
+        skipSize++;
+    });
+
+    return {
+        list,
+        position,
+        skipSize
+    };
+};
+
+Array.prototype.hash = function () {
+    let obj = Array._hashSetup();
+
+    for (let i = 0; i < 64; i++) {
+        obj = Array._hashExecute(this, obj.list, obj.position, obj.skipSize);
+    }
+
+    return [...Array(16).keys()]
+        .map(x => obj.list.slice(x * 16, x * 16 + 16))
+        .map(x => x.reduce((a, b) => a ^ b))
+        .map(x => x <= 0xF ? "0" + x.toString(16) : x.toString(16))
+        .join("");
+};
+
+Array.hash = function (key) {
+    return [...[...key].map(x => x.charCodeAt(0)), 17, 31, 73, 47, 23].hash();
+};
+
 String.prototype.split_newline = function () {
     return this.split(/\r?\n/);
 };
 
 String.prototype.split_whitespace = function () {
     return this.split(/\s/);
+};
+
+String.prototype.to_bits = function () {
+    let str = "";
+
+    for (let i = 0; i < this.length; i++) {
+        const num = parseInt(this[i], 16);
+
+        for (let j = 3; j >= 0; j--) {
+            if (num & (1 << j)) {
+                str += "1";
+            } else {
+                str += "0";
+            }
+        }
+    }
+
+    return str;
+};
+
+String.prototype.print = function () {
+    console.log(this);
+    return this;
 };
 
 Math.spiral = function (n, sum) {
