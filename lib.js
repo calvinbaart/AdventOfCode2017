@@ -309,6 +309,20 @@ String.prototype.print = function () {
     return this;
 };
 
+Number.prototype.to_bits = function () {
+    let str = "";
+
+    for (let i = 0; i < 32; i++) {
+        if (this & (1 << i)) {
+            str += "1";
+        } else {
+            str += "0";
+        }
+    }
+
+    return str;
+};
+
 Math.spiral = function (n, sum) {
     if (typeof n === "string") {
         n = Number(n);
