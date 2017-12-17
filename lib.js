@@ -278,6 +278,14 @@ Array.hash = function (key) {
     return [...[...key].map(x => x.charCodeAt(0)), 17, 31, 73, 47, 23].hash();
 };
 
+Array.prototype.swap = function (index1, index2) {
+    let tmp = this[index1];
+    this[index1] = this[index2];
+    this[index2] = tmp;
+
+    return this;
+};
+
 String.prototype.split_newline = function () {
     return this.split(/\r?\n/);
 };
